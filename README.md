@@ -1,73 +1,95 @@
-# React + TypeScript + Vite
+# Chronicle: AI-Assisted Editor
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Chronicle is a modern, AI-powered text editor designed to act as a creative partner for writers. It helps overcome writer's block by intelligently generating content continuations, rephrasing text, and more, directly within a clean and focused writing environment.
 
-Currently, two official plugins are available:
+![Demo](https://i.imgur.com/sAV331j.gif)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Live Demo
 
-## React Compiler
+Check out the live demo at [https://new-nu-smoky.vercel.app/](https://new-nu-smoky.vercel.app/)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+- **AI-Powered Writing:** Continue your writing, rephrase sentences, change the tone, and more with the "Continue Writing" and text selection AI tools.
+- **Rich Text Editor:** Built with Prosemirror, offering a stable, extensible, and familiar writing experience.
+- **Slash Commands:** Press `/` to quickly insert different block types (headings, lists) or trigger AI actions.
+- **State-Driven Logic:** predictable state management powered by XState ensures that the application behaves as expected, whether the AI is generating text, handling user input, or saving the document.
+- **Autosave:** Document changes are saved automatically.
+- **Pro Mode:** An advanced "Agent Mode" gives the AI more control to perform complex tasks like generating outlines from a simple prompt.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tech Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Frontend:** React with TypeScript
+- **Bundler:** Vite
+- **Text Editor:** Prosemirror
+- **State Management:** XState
+- **AI:** Google Gemini 1.5 Pro
+- **Backend/DB:** Firebase (for auth and document storage)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Architecture Overview
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+The application is architected around a clear separation of concerns, making it modular and maintainable.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **`src/components`**: Contains all React components, which are primarily responsible for rendering the UI. The core `Editor.tsx` component encapsulates the entire Prosemirror setup.
+- **`src/pages`**: Holds the main page components that assemble the application's UI from smaller components. `EditorPage.tsx` is the main view, bringing together the editor, sidebars, and toolbars.
+- **`src/machines`**: The brain of the application's dynamic behavior. `editorMachine.ts` is an XState state machine that orchestrates the entire AI text generation lifecycle, from sending the initial request to handling the streaming response, and managing user actions like accepting or rejecting suggestions.
+- **`src/hooks`**: Reusable hooks for managing cross-cutting concerns like autosaving (`useAutoSave`), user preferences (`useUserPreferences`), and interacting with the XState machine (`useEditorAI`).
+- **`src/lib`**: Core logic and third-party service integrations.
+  - `ai.ts`: Contains all the logic for interacting with the Google Gemini API, including prompt engineering and handling streaming responses. It cleverly asks the AI to respond with Prosemirror-compatible JSON.
+  - `editor-config.ts` & `block-commands.ts`: Define the Prosemirror schema, plugins, and custom commands.
+  - `firebase.ts`: Handles Firebase authentication and Firestore database interactions.
+- **`src/contexts`**: React contexts for sharing global state like the current theme, authentication status, and document data.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## How It Works
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1.  The user types in the Prosemirror-based **`Editor`** component.
+2.  When the "Continue Writing" button is pressed or a slash command is used, an event is dispatched to the XState machine managed by the **`useEditorAI`** hook.
+3.  The **`editorMachine`** enters the `streaming` state and invokes the `generateContinuationStream` function from `lib/ai.ts`.
+4.  A carefully constructed prompt is sent to the **Google Gemini API**, instructing it to return a response formatted as Prosemirror JSON.
+5.  As the AI response streams back, the `Editor` component inserts the text in real-time and marks it as an italicized suggestion.
+6.  Once the stream is complete, the `editorMachine` transitions to the `pending` state, and a toolbar appears allowing the user to **Accept**, **Reject**, or **Modify** the suggestion.
+7.  If **Accepted**, the italic styling is removed, and the text is parsed as proper Prosemirror nodes (e.g., lists, headings). If **Rejected**, the suggestion is deleted.
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v18 or higher)
+- npm or yarn
+
+### Installation & Setup
+
+1.  **Clone the repository:**
+
+    ```bash
+    git clone https://github.com/your-username/chronicle-editor.git
+    cd chronicle-editor
+    ```
+
+2.  **Install dependencies:**
+
+    ```bash
+    npm install
+    ```
+
+3.  **Set up environment variables:**
+    Create a `.env.local` file in the root of the project and add your Google Gemini API key:
+
+    ```
+    VITE_GEMINI_API_KEY=your_api_key_here
+    ```
+
+    _(You will also need to configure Firebase credentials in `src/lib/firebase.ts` for a full build, but the editor can be run locally without it.)_
+
+4.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
+    The application should now be running on `http://localhost:5173`.
+
+### Available Scripts
+
+- `npm run dev`: Starts the development server.
+- `npm run build`: Builds the application for production.
+- `npm run lint`: Lints the codebase using ESLint.
+- `npm run preview`: Serves the production build locally.

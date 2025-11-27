@@ -374,21 +374,25 @@ export const DocumentProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 
   // Update a document (with debounce for content updates)
-const updateDocument = useCallback(
+  const updateDocument = useCallback(
     (
       id: string,
       updates: Partial<Pick<Document, "title" | "content" | "folderId">>
     ) => {
+      console.log("updateDocument called", { id, updates });
       setDocuments((prev) => {
         const doc = prev.find((d) => d.id === id);
-        
+
         // Safety check: if doc doesn't exist, do nothing
         if (!doc) return prev;
 
         // 1. LOOP PREVENTION: Check if values are actually different
-        const isTitleChanged = updates.title !== undefined && updates.title !== doc.title;
-        const isContentChanged = updates.content !== undefined && updates.content !== doc.content;
-        const isFolderChanged = updates.folderId !== undefined && updates.folderId !== doc.folderId;
+        const isTitleChanged =
+          updates.title !== undefined && updates.title !== doc.title;
+        const isContentChanged =
+          updates.content !== undefined && updates.content !== doc.content;
+        const isFolderChanged =
+          updates.folderId !== undefined && updates.folderId !== doc.folderId;
 
         // If nothing meaningful changed, return the exact same 'prev' array
         // This stops React from triggering a re-render
@@ -415,8 +419,10 @@ const updateDocument = useCallback(
 
       // Debounce Firebase update (500ms)
       const timeout = setTimeout(async () => {
+        console.log("Attempting Firebase sync for document", { id, updates });
         try {
           await updateFirebaseDoc(id, updates);
+          console.log("Firebase update successful", { id, updates });
           pendingUpdates.current.delete(id);
         } catch (error) {
           console.error("Failed to save document:", error);
