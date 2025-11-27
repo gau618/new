@@ -1,0 +1,352 @@
+/* src/App.css - Chronicle AI Editor (Professional Writing Editor Layout) */
+
+/* App Loading State */
+.app-loading {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--notion-bg-primary);
+  color: var(--notion-text-primary);
+  gap: 16px;
+}
+
+.app-loading p {
+  font-size: 0.9375rem;
+  color: var(--notion-text-secondary);
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--notion-border);
+  border-top-color: var(--notion-accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* App Container: sidebar + editor */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  background: var(--notion-bg-secondary);
+  color: var(--notion-text-primary);
+}
+
+/* Sidebar collapsed state - app adjusts automatically */
+
+/* ========== MAIN EDITOR AREA ========== */
+.editor-main {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--notion-bg-primary);
+  position: relative;
+}
+
+/* Sidebar Expand Button (shown when sidebar collapsed) */
+.sidebar-expand-btn {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--notion-border);
+  background: var(--notion-bg-primary);
+  color: var(--notion-text-secondary);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.1s ease, color 0.1s ease, border-color 0.1s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.sidebar-expand-btn:hover {
+  background: var(--notion-bg-hover);
+  color: var(--notion-text-primary);
+  border-color: var(--notion-border-hover);
+}
+
+/* ========== DOCUMENT HEADER ========== */
+.document-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  height: 52px;
+  min-height: 52px;
+  border-bottom: 1px solid var(--notion-border);
+  background: var(--notion-bg-primary);
+  flex-shrink: 0;
+  gap: 16px;
+}
+
+.header-right-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: auto;
+}
+
+/* Add padding when sidebar is collapsed */
+.sidebar-collapsed .document-header {
+  padding-left: 60px;
+}
+
+.document-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.document-title-input {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--notion-text-primary);
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  width: 300px;
+  font-family: inherit;
+}
+
+.document-title-input::placeholder {
+  color: var(--notion-text-placeholder);
+}
+
+.document-title-input:focus {
+  outline: none;
+}
+
+.document-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  color: var(--notion-text-muted);
+}
+
+.meta-item {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Save Status Indicator */
+.save-status {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s ease;
+}
+
+.save-status-saved {
+  color: var(--notion-success, #10b981);
+}
+
+.save-status-saving {
+  color: var(--notion-text-secondary);
+}
+
+.save-status-unsaved {
+  color: var(--notion-warning, #f59e0b);
+}
+
+.save-check {
+  font-size: 0.75rem;
+}
+
+.save-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--notion-warning, #f59e0b);
+  border-radius: 50%;
+}
+
+.save-spinner {
+  width: 10px;
+  height: 10px;
+  border: 1.5px solid var(--notion-border);
+  border-top-color: var(--notion-text-secondary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.meta-item.offline-indicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #f59e0b;
+}
+
+.offline-dot {
+  width: 6px;
+  height: 6px;
+  background: #f59e0b;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.meta-divider {
+  opacity: 0.5;
+}
+
+.document-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.streaming-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8125rem;
+  color: var(--notion-accent);
+  font-weight: 500;
+}
+
+.streaming-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--notion-accent);
+  border-radius: 50%;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.9); }
+}
+
+.pending-indicator {
+  font-size: 0.8125rem;
+  color: var(--notion-text-secondary);
+  font-style: italic;
+}
+
+/* Header Mode Toggle Container */
+.header-mode-toggle {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* ========== WRITING AREA ========== */
+.writing-area {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  padding: 40px 32px 60px;
+}
+
+.editor-wrapper {
+  width: 100%;
+  max-width: 720px;
+  min-height: calc(100vh - 200px); /* Fill most of the screen */
+  display: flex;
+  flex-direction: column;
+}
+
+/* ========== EDITOR FOOTER / TOOLBAR ========== */
+.editor-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  height: 52px;
+  min-height: 52px;
+  border-top: 1px solid var(--notion-border);
+  background: var(--notion-bg-primary);
+  flex-shrink: 0;
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+}
+
+.footer-hint {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--notion-text-muted);
+}
+
+.footer-hint kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  font-size: 0.6875rem;
+  font-family: inherit;
+  font-weight: 500;
+  background: var(--notion-bg-primary);
+  border: 1px solid var(--notion-border);
+  border-radius: 4px;
+  color: var(--notion-text-secondary);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 900px) {
+  .app-container {
+    flex-direction: column;
+  }
+
+  .document-header {
+    padding: 12px 20px;
+  }
+
+  .document-title-input {
+    width: 200px;
+    font-size: 1rem;
+  }
+
+  .writing-area {
+    padding: 24px 20px 40px;
+  }
+
+  .editor-footer {
+    padding: 12px 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .document-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .document-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .editor-wrapper {
+    max-width: 100%;
+  }
+
+  .footer-hint {
+    display: none;
+  }
+}

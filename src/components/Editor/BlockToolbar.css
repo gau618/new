@@ -1,0 +1,187 @@
+/* Block Toolbar Styles */
+
+.block-toolbar {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  z-index: 100;
+}
+
+/* Show on hover over editor or when menu is open */
+.editor-container:hover .block-toolbar,
+.block-toolbar:hover,
+.block-toolbar:focus-within {
+  opacity: 1;
+}
+
+.block-toolbar-handle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  cursor: grab;
+  color: var(--notion-text-muted);
+  transition: all 0.15s ease;
+}
+
+.block-toolbar-handle:hover {
+  background: var(--notion-bg-hover);
+  color: var(--notion-text-secondary);
+}
+
+.block-toolbar-handle:active {
+  cursor: grabbing;
+}
+
+.block-toolbar-add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  color: var(--notion-text-muted);
+  transition: all 0.15s ease;
+}
+
+.block-toolbar-add:hover {
+  background: var(--notion-bg-hover);
+  color: var(--notion-text-secondary);
+}
+
+/* Dropdown Menu */
+.block-toolbar-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  min-width: 200px;
+  background: var(--notion-bg-primary);
+  border-radius: 8px;
+  box-shadow: var(--notion-shadow-md);
+  border: 1px solid var(--notion-border);
+  overflow: hidden;
+  animation: menu-appear 0.15s ease-out;
+  z-index: 1001;
+}
+
+@keyframes menu-appear {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.block-toolbar-menu-section {
+  padding: 4px 0;
+}
+
+.block-toolbar-menu-title {
+  padding: 6px 12px 4px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--notion-text-muted);
+}
+
+.block-toolbar-menu-divider {
+  height: 1px;
+  background: var(--notion-border);
+  margin: 4px 0;
+}
+
+.block-toolbar-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 12px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  font-size: 0.875rem;
+  color: var(--notion-text-primary);
+  transition: background 0.1s ease;
+}
+
+.block-toolbar-menu-item:hover {
+  background: var(--notion-bg-hover);
+}
+
+.block-toolbar-menu-item.danger {
+  color: var(--notion-error);
+}
+
+.block-toolbar-menu-item.danger:hover {
+  background: var(--notion-error-bg);
+}
+
+.block-toolbar-menu-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  font-size: 0.875rem;
+  color: var(--notion-text-secondary);
+}
+
+.block-toolbar-menu-item.danger .block-toolbar-menu-icon {
+  color: var(--notion-error);
+}
+
+.block-toolbar-shortcut {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: var(--notion-text-muted);
+  font-family: var(--font-family-mono);
+}
+
+/* Drag Preview */
+.block-drag-preview {
+  position: fixed;
+  pointer-events: none;
+  opacity: 0.8;
+  background: var(--notion-bg-primary);
+  border: 2px solid var(--notion-accent);
+  border-radius: 4px;
+  padding: 8px 12px;
+  box-shadow: var(--notion-shadow-sm);
+  z-index: 9999;
+}
+
+/* Drop indicator */
+.block-drop-indicator {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--notion-accent);
+  border-radius: 1px;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.block-drop-indicator::before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: -3px;
+  width: 8px;
+  height: 8px;
+  background: var(--notion-accent);
+  border-radius: 50%;
+}

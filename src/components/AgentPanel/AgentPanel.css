@@ -1,0 +1,388 @@
+.agent-panel {
+  width: 380px;
+  min-width: 380px;
+  height: 100vh;
+  background: var(--notion-bg-secondary);
+  border-left: 1px solid var(--notion-border);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+/* Header */
+.agent-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--notion-border);
+  background: var(--notion-bg-primary);
+}
+
+.agent-header-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: var(--notion-text-primary);
+}
+
+.agent-icon {
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.pro-badge {
+  font-size: 0.625rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+  color: white;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.agent-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.agent-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  color: var(--notion-text-muted);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.agent-action-btn:hover {
+  background: var(--notion-bg-hover);
+  color: var(--notion-text-primary);
+}
+
+/* Content Area */
+.agent-panel-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
+
+/* Welcome State */
+.agent-welcome {
+  text-align: center;
+  padding: 24px 16px;
+}
+
+.welcome-icon {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+}
+
+.agent-welcome h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--notion-text-primary);
+  margin: 0 0 8px;
+}
+
+.agent-welcome p {
+  font-size: 0.875rem;
+  color: var(--notion-text-muted);
+  margin: 0 0 24px;
+  line-height: 1.5;
+}
+
+/* Quick Actions */
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.quick-action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 12px;
+  background: var(--notion-bg-tertiary);
+  border: 1px solid var(--notion-border);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.quick-action-btn:hover {
+  background: var(--notion-bg-hover);
+  border-color: var(--notion-accent);
+}
+
+.quick-action-icon {
+  font-size: 1.25rem;
+}
+
+.quick-action-name {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--notion-text-secondary);
+}
+
+/* Messages */
+.agent-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.message-bubble {
+  display: flex;
+  gap: 10px;
+  animation: messageSlide 0.2s ease;
+}
+
+@keyframes messageSlide {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message-bubble.user {
+  flex-direction: row-reverse;
+}
+
+.message-avatar {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.message-content {
+  max-width: 85%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.message-text {
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.message-bubble.user .message-text {
+  background: var(--notion-accent);
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.message-bubble.agent .message-text {
+  background: var(--notion-bg-tertiary);
+  color: var(--notion-text-primary);
+  border-bottom-left-radius: 4px;
+}
+
+.streaming-cursor {
+  animation: blink 0.8s infinite;
+  color: var(--notion-accent);
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Code blocks in messages */
+.message-code-block {
+  background: var(--notion-bg-primary);
+  border: 1px solid var(--notion-border);
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin: 8px 0;
+  overflow-x: auto;
+  font-family: "SF Mono", "Consolas", monospace;
+  font-size: 0.8125rem;
+}
+
+.message-code-block code {
+  color: var(--notion-text-primary);
+}
+
+.inline-code {
+  background: var(--notion-bg-primary);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: "SF Mono", "Consolas", monospace;
+  font-size: 0.8125rem;
+}
+
+/* Message Actions */
+.message-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.message-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  background: var(--notion-accent);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.message-action-btn:hover {
+  opacity: 0.9;
+}
+
+/* Thinking Indicator */
+.agent-thinking {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: var(--notion-bg-tertiary);
+  border-radius: 12px;
+  font-size: 0.875rem;
+  color: var(--notion-text-muted);
+}
+
+.thinking-dots {
+  display: flex;
+  gap: 4px;
+}
+
+.thinking-dots span {
+  width: 6px;
+  height: 6px;
+  background: var(--notion-accent);
+  border-radius: 50%;
+  animation: bounce 1.4s infinite ease-in-out;
+}
+
+.thinking-dots span:nth-child(1) { animation-delay: 0s; }
+.thinking-dots span:nth-child(2) { animation-delay: 0.2s; }
+.thinking-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes bounce {
+  0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+  40% { transform: scale(1.2); opacity: 1; }
+}
+
+/* Input Container */
+.agent-input-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 12px 16px;
+  border-top: 1px solid var(--notion-border);
+  background: var(--notion-bg-primary);
+}
+
+.agent-input {
+  flex: 1;
+  resize: none;
+  border: 1px solid var(--notion-border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  background: var(--notion-bg-secondary);
+  color: var(--notion-text-primary);
+  max-height: 120px;
+  transition: border-color 0.15s ease;
+}
+
+.agent-input:focus {
+  outline: none;
+  border-color: var(--notion-accent);
+}
+
+.agent-input::placeholder {
+  color: var(--notion-text-muted);
+}
+
+.agent-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.agent-send-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--notion-accent);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+  flex-shrink: 0;
+}
+
+.agent-send-btn:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.agent-send-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .agent-panel {
+    width: 320px;
+    min-width: 320px;
+  }
+}
+
+@media (max-width: 900px) {
+  .agent-panel {
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 100;
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.1);
+  }
+}

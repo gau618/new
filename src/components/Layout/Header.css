@@ -1,0 +1,132 @@
+/* Header Component Styles - Notion Theme */
+.header {
+  padding: 12px 14px;
+  background: var(--notion-bg-secondary);
+  border-bottom: 1px solid var(--notion-border);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--notion-text-primary);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.header-subtitle {
+  font-size: 0.875rem;
+  color: var(--notion-text-secondary);
+  margin: 0;
+  padding-left: 38px;
+  line-height: 1.4;
+}
+
+.header-subtitle code {
+  background: var(--notion-code-bg);
+  color: var(--notion-code-text);
+  padding: 0.15em 0.35em;
+  border-radius: 3px;
+  font-family: var(--font-family-mono);
+  font-size: 0.85em;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: var(--notion-accent-bg);
+  border-radius: 4px;
+}
+
+.badge-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--notion-success);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.badge-dot.offline {
+  background: var(--notion-warning, #f59e0b);
+}
+
+.offline-badge {
+  background: rgba(245, 158, 11, 0.1);
+}
+
+.offline-badge .badge-text {
+  color: var(--notion-warning, #f59e0b);
+}
+
+.badge-text {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--notion-accent);
+  letter-spacing: 0.02em;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .header {
+    padding: 10px 12px;
+  }
+
+  .header-title {
+    font-size: 1rem;
+  }
+
+  .header-subtitle {
+    padding-left: 0;
+    margin-top: 4px;
+    font-size: 0.8125rem;
+  }
+
+  .header-badge .badge-text {
+    display: none;
+  }
+
+  .header-badge {
+    padding: 4px 8px;
+  }
+}

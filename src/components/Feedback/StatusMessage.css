@@ -1,0 +1,72 @@
+/* Status Message Styles - Notion Theme */
+.status-message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 400;
+  animation: slideIn 0.2s ease;
+}
+
+.status-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.status-text {
+  flex: 1;
+}
+
+.status-dismiss {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.1s, background 0.1s;
+}
+
+.status-dismiss:hover {
+  opacity: 1;
+  background: var(--notion-bg-hover);
+}
+
+/* Type Variants */
+.status-message.error {
+  background: var(--notion-error-bg);
+  color: var(--notion-error);
+}
+
+.status-message.success {
+  background: var(--notion-success-bg);
+  color: var(--notion-success);
+}
+
+.status-message.warning {
+  background: var(--notion-warning-bg);
+  color: var(--notion-warning);
+}
+
+.status-message.info {
+  background: var(--notion-accent-bg);
+  color: var(--notion-accent);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,120 @@
+/* Action Button Styles - Notion Theme */
+.action-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* Sizes */
+.action-button.sm {
+  padding: 6px 10px;
+  font-size: 0.8125rem;
+  height: 32px;
+}
+
+.action-button.md {
+  padding: 0 16px;
+  font-size: 0.8125rem;
+  height: 36px;
+}
+
+.action-button.lg {
+  padding: 10px 18px;
+  font-size: 0.875rem;
+  height: 40px;
+}
+
+/* Primary Variant - Notion Blue */
+.action-button.primary {
+  background: var(--notion-accent);
+  color: white;
+}
+
+.action-button.primary:hover:not(:disabled) {
+  background: var(--notion-accent-hover);
+}
+
+.action-button.primary:active:not(:disabled) {
+  opacity: 0.85;
+}
+
+/* Secondary Variant */
+.action-button.secondary {
+  background: var(--notion-bg-secondary);
+  color: var(--notion-text-primary);
+  border: 1px solid var(--notion-border);
+}
+
+.action-button.secondary:hover:not(:disabled) {
+  background: var(--notion-bg-hover);
+  border-color: var(--notion-border-hover);
+}
+
+/* Danger Variant */
+.action-button.danger {
+  background: var(--notion-error);
+  color: white;
+}
+
+.action-button.danger:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+/* Ghost Variant */
+.action-button.ghost {
+  background: transparent;
+  color: var(--notion-text-secondary);
+}
+
+.action-button.ghost:hover:not(:disabled) {
+  background: var(--notion-bg-hover);
+  color: var(--notion-text-primary);
+}
+
+/* Disabled State */
+.action-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Loading State */
+.action-button.loading {
+  position: relative;
+  color: transparent;
+}
+
+.button-spinner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+.button-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1em;
+}
+
+.button-text {
+  letter-spacing: 0.01em;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
