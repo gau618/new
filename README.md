@@ -62,7 +62,7 @@ The application is architected around a clear separation of concerns, making it 
 1.  **Clone the repository:**
 
     ```bash
-    git clone https://github.com/your-username/chronicle-editor.git
+    git clone https://github.com/gau618/new.git
     cd chronicle-editor
     ```
 
