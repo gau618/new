@@ -17,6 +17,41 @@ Check out the live demo at [https://new-nu-smoky.vercel.app/](https://new-nu-smo
 - **Autosave:** Document changes are saved automatically.
 - **Pro Mode:** An advanced "Agent Mode" gives the AI more control to perform complex tasks like generating outlines from a simple prompt.
 
+## Keyboard Shortcuts
+
+### Text Formatting
+
+- `Ctrl/Cmd + B` - Toggle bold
+- `Ctrl/Cmd + I` - Toggle italic
+- `Ctrl/Cmd + U` - Toggle underline
+- `Ctrl/Cmd + Shift + S` - Toggle strikethrough
+- `Ctrl/Cmd + Shift + 1-3` - Convert to heading (H1-H3)
+- `Ctrl/Cmd + Shift + 0` - Convert to paragraph
+- `Ctrl/Cmd + K` - Insert/edit link
+
+### Block Operations
+
+- `Ctrl/Cmd + Enter` - Exit current block
+- `Escape` - Exit current block
+- `Alt + ↑` - Move block up
+- `Alt + ↓` - Move block down
+- `Ctrl/Cmd + D` - Duplicate block
+
+### Slash Commands
+
+- `/` - Open slash menu for blocks and AI actions
+  - Type to filter options
+  - `↑/↓` - Navigate options
+  - `Enter` - Select option
+  - `Escape` - Close menu
+
+### Available Slash Commands
+
+- **Text:** Paragraph, Heading 1-3
+- **Lists:** Bulleted List, Numbered List, To-do List, Toggle List
+- **Blocks:** Quote, Callout, Code Block, Divider, Image
+- **AI Assistant:** Continue writing, Summarize, Expand, Improve writing, Brainstorm ideas
+
 ## Tech Stack
 
 - **Frontend:** React with TypeScript
