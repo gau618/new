@@ -29,15 +29,15 @@ import {
 // Firebase configuration
 // Replace these with your actual Firebase project config
 const firebaseConfig = {
-  apiKey: import.meta.env.FIREBASE_API_KEY || "your-api-key",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "your-api-key",
   authDomain:
-    import.meta.env.FIREBASE_AUTH_DOMAIN || "your-project.firebaseapp.com",
-  projectId: import.meta.env.FIREBASE_PROJECT_ID || "your-project-id",
+    import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "your-project.firebaseapp.com",
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "your-project-id",
   storageBucket:
-    import.meta.env.FIREBASE_STORAGE_BUCKET || "your-project.appspot.com",
+    import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "your-project.appspot.com",
   messagingSenderId:
-    import.meta.env.FIREBASE_MESSAGING_SENDER_ID || "your-sender-id",
-  appId: import.meta.env.FIREBASE_APP_ID || "your-app-id",
+    import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "your-sender-id",
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || "your-app-id",
 };
 
 console.log("Firebase config:", {

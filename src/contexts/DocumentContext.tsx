@@ -374,17 +374,33 @@ export const DocumentProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 
   // Update a document (with debounce for content updates)
-  const updateDocument = useCallback(
+const updateDocument = useCallback(
     (
       id: string,
       updates: Partial<Pick<Document, "title" | "content" | "folderId">>
     ) => {
-      // Update local state immediately
-      setDocuments((prev) =>
-        prev.map((doc) =>
-          doc.id === id ? { ...doc, ...updates, updatedAt: Date.now() } : doc
-        )
-      );
+      setDocuments((prev) => {
+        const doc = prev.find((d) => d.id === id);
+        
+        // Safety check: if doc doesn't exist, do nothing
+        if (!doc) return prev;
+
+        // 1. LOOP PREVENTION: Check if values are actually different
+        const isTitleChanged = updates.title !== undefined && updates.title !== doc.title;
+        const isContentChanged = updates.content !== undefined && updates.content !== doc.content;
+        const isFolderChanged = updates.folderId !== undefined && updates.folderId !== doc.folderId;
+
+        // If nothing meaningful changed, return the exact same 'prev' array
+        // This stops React from triggering a re-render
+        if (!isTitleChanged && !isContentChanged && !isFolderChanged) {
+          return prev;
+        }
+
+        // 2. Perform the update if changes exist
+        return prev.map((d) =>
+          d.id === id ? { ...d, ...updates, updatedAt: Date.now() } : d
+        );
+      });
 
       // Skip Firebase sync if offline or local document
       if (isOffline || id.startsWith("local_")) {
